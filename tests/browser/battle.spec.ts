@@ -20,7 +20,7 @@ test('portraits and sprites load; the whole portrait UI fits',async({page})=>{
 });
 test('touch opens nested menus in one fixed region and freezes combat',async({page})=>{
  await setup(page);const field=await page.getByTestId('battlefield').boundingBox();const dock=await page.getByTestId('party-dock').boundingBox();
- await portrait(page,'aster').tap();await page.clock.runFor(250);const box=await page.getByTestId('command-panel').boundingBox();
+ await portrait(page,'aster').tap();await page.clock.runFor(250);const box=await page.getByTestId('command-panel').boundingBox();expect(box!.y).toBeGreaterThanOrEqual(field!.y);
  const before=await page.getByRole('meter').evaluateAll(es=>es.map(e=>e.getAttribute('aria-valuenow')));
  await page.clock.runFor(20000);expect(await page.getByRole('meter').evaluateAll(es=>es.map(e=>e.getAttribute('aria-valuenow')))).toEqual(before);
  await page.getByRole('button',{name:/Magic .*MP available/}).tap();expect(await page.getByTestId('command-panel').boundingBox()).toEqual(box);
